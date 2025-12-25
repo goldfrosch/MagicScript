@@ -6,7 +6,7 @@
 #include "MagicScriptInterpreterSubsystem.generated.h"
 
 struct FScriptLog;
-enum class EScriptLogType;
+enum class EScriptLogType : uint8;
 
 namespace MagicScript
 {
