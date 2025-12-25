@@ -10,7 +10,7 @@
 #include "MagicScript/Core/MsLexer.h"
 #include "MagicScript/Core/MsParser.h"
 #include "MagicScript/Core/MsEnvironment.h"
-#include "MagicScript/Logging/MsLogging.h"
+#include "MagicScript/Logging/MsLoggingEnum.h"
 #include "MagicScript/Runtime/MsInterpreter.h"
 #include "MagicScript/Util/MsMathBuiltins.h"
 #include "MagicScript/Util/MsConsoleBuiltins.h"
@@ -93,7 +93,7 @@ bool UMagicScriptInterpreterSubsystem::RunScriptFile(const FString& RelativePath
 	FTimeComplexityResult TimeComplexity = FTimeComplexityAnalyzer::AnalyzeProgram(Program);
 
 	// 4) 인터프리터 생성 + 네이티브 함수 등록 (상대 경로를 키로 사용)
-	RegisterBuiltins(RelativePath);
+	RegisterBuiltins_Internal(RelativePath);
 
 	// --- import 처리 ---
 	if (!Import_Internal(Program, ExecutionContext))

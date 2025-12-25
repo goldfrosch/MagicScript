@@ -1,29 +1,7 @@
 ﻿#pragma once
 
-UENUM(BlueprintType)
-enum class EScriptLogType : uint8
-{
-	Default,
-	Warning,
-	Error,
-};
-
-USTRUCT(BlueprintType)
-struct MAGICCODER_API FScriptLog
-{
-	GENERATED_BODY()
-
-	UPROPERTY(BlueprintReadWrite)
-	EScriptLogType LogType;
-
-	UPROPERTY(BlueprintReadWrite)
-	FString LogMessage;
-
-	FScriptLog()
-		: LogType(EScriptLogType::Default)
-	{
-	}
-};
+struct FScriptLog;
+enum class EScriptLogType : uint8;
 
 namespace MagicScript
 {

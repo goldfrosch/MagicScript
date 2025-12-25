@@ -1,5 +1,6 @@
 #include "MagicScript/Runtime/MsInterpreter.h"
 #include "MagicScript/Logging/MsLogging.h"
+#include "MagicScript/Logging/MsLoggingEnum.h"
 #include "Logging/LogMacros.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogMagicScript, Log, All);

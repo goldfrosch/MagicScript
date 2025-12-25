@@ -1,4 +1,6 @@
 #include "MagicScript/Core/MsParser.h"
+#include "MagicScript/Logging/MsLogging.h"
+#include "MagicScript/Logging/MsLoggingEnum.h"
 
 namespace MagicScript
 {

@@ -13,8 +13,8 @@ namespace MagicScript
 	class FLexer;
 	class FParser;
 	class FEnvironment;
-	class FTimeComplexityResult;
 	struct FProgram;
+	struct FTimeComplexityResult;
 }
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnScriptLogAdded, const FScriptLog&, ScriptLog);

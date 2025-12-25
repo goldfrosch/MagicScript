@@ -2,7 +2,6 @@
 #include "MagicScript/Core/MsEnvironment.h"
 #include "MagicScript/Core/MsValue.h"
 #include "MagicScript/Runtime/MsInterpreter.h"
-#include "MagicScript/Subsystem/MagicScriptInterpreterSubsystem.h"
 #include "Math/UnrealMathUtility.h"
 
 namespace MagicScript

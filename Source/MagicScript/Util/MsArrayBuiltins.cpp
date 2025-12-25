@@ -2,7 +2,7 @@
 #include "MagicScript/Core/MsEnvironment.h"
 #include "MagicScript/Core/MsValue.h"
 #include "MagicScript/Runtime/MsInterpreter.h"
-#include "MagicScript/Logging/MsLogging.h"
+#include "MagicScript/Logging/MsLoggingEnum.h"
 #include "MagicScript/Subsystem/MagicScriptInterpreterSubsystem.h"
 
 namespace MagicScript
