@@ -16,12 +16,15 @@ namespace MagicScript
 	};
 
 	// 실행 컨텍스트
-	struct FScriptExecutionContext
+	struct MAGICSCRIPT_API FScriptExecutionContext
 	{
 		EExecutionMode Mode = EExecutionMode::Normal;
 		
 		// PreAnalysis 모드에서 롤백을 위한 Environment 스냅샷
 		TSharedPtr<FEnvironment> Snapshot;
+		
+		// 네이티브 함수에서 스크립트 함수를 호출하기 위한 Interpreter 포인터
+		TSharedPtr<FInterpreter> Interpreter = nullptr;
 		
 		FScriptExecutionContext() = default;
 		explicit FScriptExecutionContext(const EExecutionMode InMode) : Mode(InMode) {}
@@ -33,7 +36,7 @@ namespace MagicScript
 	 * - 전역 환경에서 함수 등록/호출
 	 */
 	
-	class FInterpreter
+	class MAGICSCRIPT_API FInterpreter
 	{
 	public:
 		FInterpreter() = default;
