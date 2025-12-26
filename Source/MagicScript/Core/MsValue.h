@@ -27,7 +27,7 @@ namespace MagicScript
 	};
 
 	// 런타임 함수 표현 (AST + 환경)
-	struct FFunctionValue
+	struct MAGICSCRIPT_API FFunctionValue
 	{
 		FString Name;
 		TArray<FString> Parameters;
@@ -43,7 +43,7 @@ namespace MagicScript
 	};
 
 	// 인터프리터 런타임 값
-	struct FValue
+	struct MAGICSCRIPT_API FValue
 	{
 		EValueType Type = EValueType::Null;
 		double     Number = 0.0;

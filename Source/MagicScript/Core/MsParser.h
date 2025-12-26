@@ -11,7 +11,7 @@ namespace MagicScript
 	 * - EBNF 스펙에 맞는 AST 생성 책임
 	 * - 현재는 인터페이스와 주요 진입점만 정의
 	 */
-	class FParser
+	class MAGICSCRIPT_API FParser
 	{
 	public:
 		FParser(const TArray<FToken>& InTokens);

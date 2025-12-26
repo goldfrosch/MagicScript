@@ -10,7 +10,7 @@ namespace MagicScript
 	 * - 공백/주석 제거
 	 * - 토큰 시퀀스 생성
 	 */
-	class FLexer
+	class MAGICSCRIPT_API FLexer
 	{
 	public:
 		explicit FLexer(const FString& InSource);

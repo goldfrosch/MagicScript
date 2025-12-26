@@ -75,14 +75,14 @@ namespace MagicScript
 	};
 
 	/** 소스 코드 상의 위치 정보 */
-	struct FSourceLocation
+	struct MAGICSCRIPT_API FSourceLocation
 	{
 		int32 Line = 1;
 		int32 Column = 1;
 	};
 
 	/** 렉서 결과 토큰 */
-	struct FToken
+	struct MAGICSCRIPT_API FToken
 	{
 		ETokenType Type = ETokenType::Error;
 		FString    Lexeme;

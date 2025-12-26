@@ -11,7 +11,7 @@ namespace MagicScript
 	using FStatementPtr = TSharedPtr<FStatement>;
 	using FExpressionPtr = TSharedPtr<FExpression>;
 
-	struct FProgram
+	struct MAGICSCRIPT_API FProgram
 	{
 		TArray<FStatementPtr> Statements;
 	};
@@ -48,7 +48,7 @@ namespace MagicScript
 		PostfixDecrement   // x--
 	};
 
-	struct FStatement
+	struct MAGICSCRIPT_API FStatement
 	{
 		virtual ~FStatement() = default;
 		EStatementKind Kind;
@@ -60,7 +60,7 @@ namespace MagicScript
 		}
 	};
 
-	struct FExpression
+	struct MAGICSCRIPT_API FExpression
 	{
 		virtual ~FExpression() = default;
 		EExpressionKind Kind;
@@ -73,7 +73,7 @@ namespace MagicScript
 	};
 
 	// === 문장 노드 ===
-	struct FBlockStatement : FStatement
+	struct MAGICSCRIPT_API FBlockStatement : FStatement
 	{
 		TArray<FStatementPtr> Statements;
 
@@ -83,7 +83,7 @@ namespace MagicScript
 		}
 	};
 
-	struct FVarDeclStatement : FStatement
+	struct MAGICSCRIPT_API FVarDeclStatement : FStatement
 	{
 		bool bIsConst = false;
 		FString Name;
@@ -95,7 +95,7 @@ namespace MagicScript
 		}
 	};
 
-	struct FFuncDeclStatement : FStatement
+	struct MAGICSCRIPT_API FFuncDeclStatement : FStatement
 	{
 		FString Name;
 		TArray<FString> Parameters;
@@ -107,7 +107,7 @@ namespace MagicScript
 		}
 	};
 
-	struct FImportStatement : FStatement
+	struct MAGICSCRIPT_API FImportStatement : FStatement
 	{
 		FString Path; // ex: Scripts/Util.ms
 
@@ -117,7 +117,7 @@ namespace MagicScript
 		}
 	};
 
-	struct FIfStatement : FStatement
+	struct MAGICSCRIPT_API FIfStatement : FStatement
 	{
 		FExpressionPtr Condition;
 		FStatementPtr ThenBranch;
@@ -129,13 +129,13 @@ namespace MagicScript
 		}
 	};
 
-	struct FSwitchCase
+	struct MAGICSCRIPT_API FSwitchCase
 	{
 		FExpressionPtr Value;  // case 값 (null이면 default)
 		TArray<FStatementPtr> Statements;
 	};
 
-	struct FSwitchStatement : FStatement
+	struct MAGICSCRIPT_API FSwitchStatement : FStatement
 	{
 		FExpressionPtr Expression;  // switch (expression)
 		TArray<FSwitchCase> Cases;   // case/default 목록
@@ -146,7 +146,7 @@ namespace MagicScript
 		}
 	};
 
-	struct FWhileStatement : FStatement
+	struct MAGICSCRIPT_API FWhileStatement : FStatement
 	{
 		FExpressionPtr Condition;
 		FStatementPtr Body;
@@ -157,7 +157,7 @@ namespace MagicScript
 		}
 	};
 
-	struct FForStatement : FStatement
+	struct MAGICSCRIPT_API FForStatement : FStatement
 	{
 		FStatementPtr Init;        // VarDecl 또는 ExprStmt, null 허용
 		FExpressionPtr Condition;  // null -> true
@@ -170,7 +170,7 @@ namespace MagicScript
 		}
 	};
 
-	struct FReturnStatement : FStatement
+	struct MAGICSCRIPT_API FReturnStatement : FStatement
 	{
 		FExpressionPtr Value; // null 허용
 
@@ -180,7 +180,7 @@ namespace MagicScript
 		}
 	};
 
-	struct FExpressionStatement : FStatement
+	struct MAGICSCRIPT_API FExpressionStatement : FStatement
 	{
 		FExpressionPtr Expr;
 
@@ -218,7 +218,7 @@ namespace MagicScript
 		ModAssign   // %=
 	};
 
-	struct FBinaryExpression : FExpression
+	struct MAGICSCRIPT_API FBinaryExpression : FExpression
 	{
 		EBinaryOp Op;
 		FExpressionPtr Left;
@@ -230,7 +230,7 @@ namespace MagicScript
 		}
 	};
 
-	struct FUnaryExpression : FExpression
+	struct MAGICSCRIPT_API FUnaryExpression : FExpression
 	{
 		EUnaryOp Op;
 		FExpressionPtr Operand;
@@ -241,7 +241,7 @@ namespace MagicScript
 		}
 	};
 
-	struct FLiteralExpression : FExpression
+	struct MAGICSCRIPT_API FLiteralExpression : FExpression
 	{
 		// 실제 값은 인터프리터 단계에서 MsValue로 변환
 		FToken LiteralToken;
@@ -252,7 +252,7 @@ namespace MagicScript
 		}
 	};
 
-	struct FIdentifierExpression : FExpression
+	struct MAGICSCRIPT_API FIdentifierExpression : FExpression
 	{
 		FString Name;
 
@@ -262,7 +262,7 @@ namespace MagicScript
 		}
 	};
 
-	struct FAssignmentExpression : FExpression
+	struct MAGICSCRIPT_API FAssignmentExpression : FExpression
 	{
 		EAssignmentOp Op = EAssignmentOp::Assign;
 		FString TargetName;
@@ -276,7 +276,7 @@ namespace MagicScript
 		}
 	};
 
-	struct FCallExpression : FExpression
+	struct MAGICSCRIPT_API FCallExpression : FExpression
 	{
 		FString CalleeName;
 		TArray<FExpressionPtr> Arguments;
@@ -288,7 +288,7 @@ namespace MagicScript
 		}
 	};
 
-	struct FGroupingExpression : FExpression
+	struct MAGICSCRIPT_API FGroupingExpression : FExpression
 	{
 		FExpressionPtr Inner;
 
@@ -298,7 +298,7 @@ namespace MagicScript
 		}
 	};
 
-	struct FArrayLiteralExpression : FExpression
+	struct MAGICSCRIPT_API FArrayLiteralExpression : FExpression
 	{
 		TArray<FExpressionPtr> Elements;
 
@@ -308,13 +308,13 @@ namespace MagicScript
 		}
 	};
 
-	struct FObjectProperty
+	struct MAGICSCRIPT_API FObjectProperty
 	{
 		FString Key;              // 속성 이름 (식별자 또는 문자열)
 		FExpressionPtr Value;     // 속성 값 표현식
 	};
 
-	struct FObjectLiteralExpression : FExpression
+	struct MAGICSCRIPT_API FObjectLiteralExpression : FExpression
 	{
 		TArray<FObjectProperty> Properties;  // 객체 속성 목록
 
@@ -324,7 +324,7 @@ namespace MagicScript
 		}
 	};
 
-	struct FIndexExpression : FExpression
+	struct MAGICSCRIPT_API FIndexExpression : FExpression
 	{
 		FExpressionPtr Target;  // 배열 변수 (Identifier 또는 다른 표현식)
 		FExpressionPtr Index;   // 인덱스 표현식
@@ -335,7 +335,7 @@ namespace MagicScript
 		}
 	};
 
-	struct FMemberAccessExpression : FExpression
+	struct MAGICSCRIPT_API FMemberAccessExpression : FExpression
 	{
 		FExpressionPtr Target;  // 객체 (배열 등)
 		FString MemberName;      // 멤버 이름 (push_back, pop_front 등)
@@ -346,7 +346,7 @@ namespace MagicScript
 		}
 	};
 
-	struct FArrowFunctionExpression : FExpression
+	struct MAGICSCRIPT_API FArrowFunctionExpression : FExpression
 	{
 		TArray<FString> Parameters;  // 파라미터 목록
 		FExpressionPtr Body;         // 단일 표현식 (x => x + 1)
@@ -358,7 +358,7 @@ namespace MagicScript
 		}
 	};
 
-	struct FPostfixExpression : FExpression
+	struct MAGICSCRIPT_API FPostfixExpression : FExpression
 	{
 		FExpressionPtr Operand;  // x++ 또는 x--에서 x
 		bool bIsIncrement;      // true면 ++, false면 --

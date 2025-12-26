@@ -6,7 +6,7 @@
 namespace MagicScript
 {
 	// 스코프 단위 즉 렉시컬 환경을 의미함.
-	class FEnvironment : public TSharedFromThis<FEnvironment>
+	class MAGICSCRIPT_API FEnvironment : public TSharedFromThis<FEnvironment>
 	{
 	public:
 		explicit FEnvironment(const TSharedPtr<FEnvironment>& InParent = nullptr)
