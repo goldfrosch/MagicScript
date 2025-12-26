@@ -1,6 +1,6 @@
 # MagicScript 플러그인
 
-MagicScript는 커스텀 스크립팅 언어입니다. 이 문서는 플러그인의 코드 구조와 각 모듈의 역할을 설명합니다.
+MagicScript는 커스텀 스크립팅 언어로, JavaScript 문법과 매우 유사하게 제작되었습니다. 이 문서는 플러그인의 코드 구조와 각 모듈의 역할을 설명합니다.
 
 ## 목차
 
@@ -37,7 +37,6 @@ Plugins/MagicScript/
 │   └── MagicScript/
 │       ├── Core/               # 핵심 컴파일러/인터프리터 컴포넌트
 │       ├── Runtime/            # 런타임 실행 환경
-│       ├── Subsystem/          # Unreal Engine 서브시스템 통합
 │       ├── Util/               # 빌트인 함수 모음
 │       ├── Analysis/           # 복잡도 분석기
 │       ├── Logging/            # 로깅 시스템
@@ -138,23 +137,6 @@ Plugins/MagicScript/
   - `Tick()`: Tick에서 호출하여 대기 중인 작업 실행
   - `HasPendingTasks()`: 대기 중인 작업 존재 여부 확인
   - `ClearAllTasks()`: 모든 작업 취소
-
----
-
-### Subsystem
-
-Unreal Engine 서브시스템 통합입니다.
-
-#### `MagicScriptInterpreterSubsystem.h/cpp`
-
-- **역할**: Unreal Engine GameInstanceSubsystem로 MagicScript 인터프리터 제공
-- **주요 기능**:
-  - `RunScriptFile()`: 스크립트 파일 실행
-  - 스크립트 캐싱 (소스 코드, 파싱된 프로그램, 인터프리터)
-  - 시간/공간 복잡도 캐시
-  - `OnScriptLogAdded`: 로그 이벤트 델리게이트
-  - `TickEventLoops()`: 모든 이벤트 루프 업데이트
-  - 빌트인 함수 등록 관리
 
 ---
 

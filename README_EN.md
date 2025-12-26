@@ -1,6 +1,6 @@
 # MagicScript Plugin
 
-MagicScript is a custom scripting language. This document describes the code structure of the plugin and the role of each module.
+MagicScript is a custom scripting language that is very similar to JavaScript syntax. This document describes the code structure of the plugin and the role of each module.
 
 ## Table of Contents
 
@@ -37,7 +37,6 @@ Plugins/MagicScript/
 │   └── MagicScript/
 │       ├── Core/               # Core compiler/interpreter components
 │       ├── Runtime/            # Runtime execution environment
-│       ├── Subsystem/          # Unreal Engine subsystem integration
 │       ├── Util/               # Built-in function collections
 │       ├── Analysis/           # Complexity analyzer
 │       ├── Logging/            # Logging system
@@ -138,23 +137,6 @@ Runtime execution environment and interpreter.
   - `Tick()`: Called Tick to execute pending tasks
   - `HasPendingTasks()`: Checks if there are pending tasks
   - `ClearAllTasks()`: Cancels all tasks
-
----
-
-### Subsystem
-
-Unreal Engine subsystem integration.
-
-#### `MagicScriptInterpreterSubsystem.h/cpp`
-
-- **Role**: Provides MagicScript interpreter as an Unreal Engine GameInstanceSubsystem
-- **Key Features**:
-  - `RunScriptFile()`: Executes script files
-  - Script caching (source code, parsed programs, interpreters)
-  - Time/space complexity cache
-  - `OnScriptLogAdded`: Log event delegate
-  - `TickEventLoops()`: Updates all event loops
-  - Built-in function registration management
 
 ---
 
