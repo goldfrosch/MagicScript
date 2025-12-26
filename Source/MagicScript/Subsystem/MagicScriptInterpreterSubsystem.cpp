@@ -68,7 +68,8 @@ bool UMagicScriptInterpreterSubsystem::RunScriptFile(const FString& RelativePath
 	}
 	
 	// 0) 캐시 확인 (상대 경로를 키로 사용)
-	if (CheckCache_Internal(RelativePath, FuncName, ExecutionContext))
+	if (CheckCache_Internal(RelativePath, FuncName,
+		const_cast<FScriptExecutionContext&>(ExecutionContext)))
 	{
 		return true;  // 캐시에서 실행 성공
 	}
@@ -105,7 +106,8 @@ bool UMagicScriptInterpreterSubsystem::RunScriptFile(const FString& RelativePath
 	InterpreterCache[RelativePath]->ExecuteProgram(Program, ExecutionContext);
 	
 	// 5) 함수 실행 및 동적 분석 (상대 경로를 키로 사용)
-	RunScript_Internal(TimeComplexity, RelativePath, FuncName, ExecutionContext);
+	RunScript_Internal(TimeComplexity, RelativePath, FuncName,
+		const_cast<FScriptExecutionContext&>(ExecutionContext));
 
 	const double EndTime = FPlatformTime::Seconds();
 
@@ -203,7 +205,7 @@ bool UMagicScriptInterpreterSubsystem::SaveScriptCache(const FString& ScriptPath
 	return FFileHelper::SaveStringToFile(Source, *ScriptFilePath);
 }
 
-bool UMagicScriptInterpreterSubsystem::CheckCache_Internal(const FString& RelativePath, const FString& FuncName, const FScriptExecutionContext& ExecutionContext)
+bool UMagicScriptInterpreterSubsystem::CheckCache_Internal(const FString& RelativePath, const FString& FuncName, FScriptExecutionContext& ExecutionContext)
 {
 	const TSharedPtr<FProgram>* CachedProgramPtr = ProgramCache.Find(RelativePath);
 	if (!CachedProgramPtr)
@@ -242,6 +244,7 @@ bool UMagicScriptInterpreterSubsystem::CheckCache_Internal(const FString& Relati
 	// 라이브에서 수정하는 경우는 캐싱 로직은 타지 않는다는 것이 핵심
 
 	// 기존에 캐싱해둔 프로그램 재실행
+	ExecutionContext.Interpreter = Interpreter;
 	Interpreter->ExecuteProgram(Program, ExecutionContext);
 	
 	const double ExecStartTime = FPlatformTime::Seconds();
@@ -384,8 +387,10 @@ bool UMagicScriptInterpreterSubsystem::Import_Internal(const TSharedPtr<FProgram
 }
 
 void UMagicScriptInterpreterSubsystem::RunScript_Internal(FTimeComplexityResult& TimeComplexityResult,
-	const FString& RelativePath, const FString& FuncName, const FScriptExecutionContext& ExecutionContext)
+	const FString& RelativePath, const FString& FuncName, FScriptExecutionContext& ExecutionContext)
 {
+	ExecutionContext.Interpreter = InterpreterCache[RelativePath];
+	
 	const double ExecStartTime = FPlatformTime::Seconds();
 	FValue Ret = InterpreterCache[RelativePath]->CallFunctionByName(FuncName, {}, ExecutionContext);
 	const double ExecEndTime = FPlatformTime::Seconds();

@@ -75,13 +75,13 @@ private:
 	// 공간 복잡도 캐시
 	TMap<FString, int64> PrevSpaceComplexityCache;
 
-	bool CheckCache_Internal(const FString& RelativePath, const FString& FuncName, const MagicScript::FScriptExecutionContext& ExecutionContext);
+	bool CheckCache_Internal(const FString& RelativePath, const FString& FuncName, MagicScript::FScriptExecutionContext& ExecutionContext);
 	bool Lexer_Internal(MagicScript::FLexer& Lexer, TArray<MagicScript::FToken>& Tokens, const FString& ScriptPath);
 	bool Parsing_Internal(MagicScript::FParser& Parser, const FString& RelativePath);
 	bool Import_Internal(const TSharedPtr<MagicScript::FProgram>& Program, const MagicScript::FScriptExecutionContext& ExecutionContext);
 	void RunScript_Internal(MagicScript::FTimeComplexityResult& TimeComplexityResult,
 		const FString& RelativePath, const FString& FuncName,
-		const MagicScript::FScriptExecutionContext& ExecutionContext);
+		MagicScript::FScriptExecutionContext& ExecutionContext);
 	
 	void RegisterBuiltins_Internal(const FString& RelativePath);
 };
