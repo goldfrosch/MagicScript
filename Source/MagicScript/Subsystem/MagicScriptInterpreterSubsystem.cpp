@@ -15,7 +15,6 @@
 #include "MagicScript/Util/MsMathBuiltins.h"
 #include "MagicScript/Util/MsConsoleBuiltins.h"
 #include "MagicScript/Util/MsArrayBuiltins.h"
-#include "MagicScript/Util/MsGlobalBuiltins.h"
 
 using namespace MagicScript;
 
@@ -426,7 +425,6 @@ void UMagicScriptInterpreterSubsystem::OnRegisterBuiltins(const TSharedPtr<FEnvi
 	MsMathBuiltins::Register(Env, this);
 	MsConsoleBuiltins::Register(Env, this);
 	MsArrayBuiltins::Register(Env, this);
-	MsGlobalBuiltins::Register(Env, this);
 }
 
 void UMagicScriptInterpreterSubsystem::RegisterBuiltins_Internal(const FString& RelativePath)

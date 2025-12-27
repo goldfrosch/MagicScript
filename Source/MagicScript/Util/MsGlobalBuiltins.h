@@ -6,12 +6,11 @@ class UMagicScriptInterpreterSubsystem;
 
 namespace MagicScript
 {
+	struct FValue;
 	class FEnvironment;
 	
-	namespace MsGlobalBuiltins
-	{
-		/** 전역 변수 관련 함수들을 등록 */
-		void Register(TSharedPtr<FEnvironment> Env, UMagicScriptInterpreterSubsystem* Subsystem);
-	}
+	bool GetObjectParamBool(const TSharedPtr<TMap<FString, FValue>>& Params, const FString& Key);
+	float GetObjectParamFloat(const TSharedPtr<TMap<FString, FValue>>& Params, const FString& Key);
+	FVector GetObjectParamVector(const TSharedPtr<TMap<FString, FValue>>& Params, const FString& Key);
 }
 
