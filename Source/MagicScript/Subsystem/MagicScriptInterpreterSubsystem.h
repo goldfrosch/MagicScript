@@ -3,10 +3,8 @@
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "MagicScript/Runtime/MsInterpreter.h"
+#include "MagicScript/Logging/MsLoggingEnum.h"
 #include "MagicScriptInterpreterSubsystem.generated.h"
-
-struct FScriptLog;
-enum class EScriptLogType : uint8;
 
 namespace MagicScript
 {
