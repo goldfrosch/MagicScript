@@ -63,5 +63,13 @@ namespace MagicScript
 		
 		return FVector(X, Y, Z);
 	}
+	
+	void SetObjectParamToVector(const TSharedPtr<TMap<FString, FValue>>& Params, const FVector& Value)
+	{
+		Params.Get()->Add("x", FValue::FromNumber(Value.X));
+		Params.Get()->Add("y", FValue::FromNumber(Value.Y));
+		Params.Get()->Add("z", FValue::FromNumber(Value.Z));
+	}
 }
+
 
