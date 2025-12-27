@@ -9,8 +9,8 @@ namespace MagicScript
 	struct FValue;
 	class FEnvironment;
 	
-	bool GetObjectParamBool(const TSharedPtr<TMap<FString, FValue>>& Params, const FString& Key);
-	float GetObjectParamFloat(const TSharedPtr<TMap<FString, FValue>>& Params, const FString& Key);
-	FVector GetObjectParamVector(const TSharedPtr<TMap<FString, FValue>>& Params, const FString& Key);
+	MAGICSCRIPT_API bool GetObjectParamBool(const TSharedPtr<TMap<FString, FValue>>& Params, const FString& Key);
+	MAGICSCRIPT_API float GetObjectParamFloat(const TSharedPtr<TMap<FString, FValue>>& Params, const FString& Key);
+	MAGICSCRIPT_API FVector GetObjectParamVector(const TSharedPtr<TMap<FString, FValue>>& Params, const FString& Key);
 }
 
