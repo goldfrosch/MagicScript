@@ -150,7 +150,7 @@ namespace MagicScript
 				{
 					return TEXT("{}");
 				}
-				FString Result = TEXT("{");
+				FString Result = TEXT("{ ");
 				bool bFirst = true;
 				for (const auto& Pair : *Object)
 				{
@@ -161,7 +161,7 @@ namespace MagicScript
 					bFirst = false;
 					Result += FString::Printf(TEXT("%s: %s"), *Pair.Key, *Pair.Value.ToDebugString());
 				}
-				Result += TEXT("}");
+				Result += TEXT(" }");
 				return Result;
 			}
 			case EValueType::NativeObject: return FString::Printf(TEXT("%s"), *NativeObjectPtr.Get()->GetName());
