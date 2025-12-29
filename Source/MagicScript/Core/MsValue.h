@@ -23,7 +23,8 @@ namespace MagicScript
 		Bool,
 		Function,
 		Array,
-		Object
+		Object,
+		NativeObject
 	};
 
 	// 런타임 함수 표현 (AST + 환경)
@@ -52,6 +53,7 @@ namespace MagicScript
 		TSharedPtr<FFunctionValue> Function;
 		TSharedPtr<TArray<FValue>> Array;
 		TSharedPtr<TMap<FString, FValue>> Object;  // 객체: 키-값 쌍
+		TWeakObjectPtr<> NativeObjectPtr;
 
 		static FValue Null()
 		{
@@ -106,6 +108,15 @@ namespace MagicScript
 			return V;
 		}
 
+		static FValue FromNativeObject(UObject* InObject)
+		{
+			FValue V;
+			V.Type = EValueType::NativeObject;
+			V.NativeObjectPtr = InObject;
+
+			return V;
+		}
+
 		FString ToDebugString() const
 		{
 			switch (Type)
@@ -153,6 +164,7 @@ namespace MagicScript
 				Result += TEXT("}");
 				return Result;
 			}
+			case EValueType::NativeObject: return FString::Printf(TEXT("%s"), *NativeObjectPtr.Get()->GetName());
 			default: return TEXT("<unknown>");
 			}
 		}

@@ -169,6 +169,11 @@ namespace MagicScript
 					case EValueType::Null:
 						bEqual = true;
 						break;
+					case EValueType::Object:
+						bEqual = SwitchValue.Object == CaseValue.Object;
+					case EValueType::NativeObject:
+						bEqual = SwitchValue.NativeObjectPtr == CaseValue.NativeObjectPtr;
+						break;
 					default:
 						bEqual = false;
 						break;
@@ -276,7 +281,7 @@ namespace MagicScript
 				}
 			}
 
-			for (;;)
+			while (true)
 			{
 				// condition
 				if (ForStmt->Condition.IsValid())
@@ -669,12 +674,10 @@ namespace MagicScript
 				Env->Assign(Asg->TargetName, Result);
 				return Result;
 			}
-			else
-			{
-				// 일반 할당
-				Env->Assign(Asg->TargetName, RightValue);
-				return RightValue;
-			}
+				
+			// 일반 할당
+			Env->Assign(Asg->TargetName, RightValue);
+			return RightValue;
 		}
 
 		case EExpressionKind::Call:
@@ -748,7 +751,7 @@ namespace MagicScript
 
 			if (Entry->Value.Type != EValueType::Function || !Entry->Value.Function.IsValid())
 			{
-				FString TypeName = TEXT("Unknown");
+				FString TypeName;
 				switch (Entry->Value.Type)
 				{
 					case EValueType::Number: TypeName = TEXT("Number"); break;
@@ -758,6 +761,7 @@ namespace MagicScript
 					case EValueType::Array: TypeName = TEXT("Array"); break;
 					case EValueType::Function: TypeName = TEXT("Function (invalid)"); break;
 					case EValueType::Object: TypeName = TEXT("Object (invalid)"); break;
+					default: TypeName = TEXT("unknown (invalid)"); break;
 				}
 				
 				FString ErrorMsg = FString::Printf(
@@ -1214,14 +1218,16 @@ namespace MagicScript
 		}
 	}
 
+	// TODO: 일부 값이 비즈니스 로직에 맞게 하드코딩 처리되어 있기에 수정 필요
 	int32 FInterpreter::EstimateValueSizeBytes(const FValue& V)
 	{
 		switch (V.Type)
 		{
-		case EValueType::Number:   return 8;   // double 8 bytes
-		case EValueType::Bool:     return 4;   // bool/align
-		case EValueType::String:   return 24 + V.String.Len() * 2; // 대략적인 UE FString 비용
-		case EValueType::Function: return 64;  // 함수 포인터/클로저 오버헤드 대략치
+		case EValueType::Number:   return sizeof(double);
+		case EValueType::Bool:     return sizeof(bool);
+		case EValueType::String:   return sizeof(FString) + V.String.Len() * 2; // 대략적인 UE FString 비용
+		case EValueType::Function: return 64;  // 함수 포인터 /클로저 오버헤드 대략치
+		case EValueType::NativeObject: return 12; // 비즈니스 로직에 따른 임의 수치라 추후 별도의 테이블로 이동 필요
 		case EValueType::Array:
 		{
 			if (!V.Array.IsValid())
