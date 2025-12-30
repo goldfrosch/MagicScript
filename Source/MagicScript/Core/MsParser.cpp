@@ -522,7 +522,8 @@ namespace MagicScript
 			Assign->Value = Value;
 			return Assign;
 		}
-		else if (Left.IsValid() && Left->Kind == EExpressionKind::MemberAccess)
+		
+		if (Left.IsValid() && Left->Kind == EExpressionKind::MemberAccess)
 		{
 			// 객체 멤버 할당: obj.property = value
 			TSharedPtr<FMemberAccessExpression> MemberAccess = StaticCastSharedPtr<FMemberAccessExpression>(Left);
@@ -545,13 +546,12 @@ namespace MagicScript
 				
 				return Assign;
 			}
-			else
-			{
-				ReportError(Previous(), TEXT("Invalid assignment target for member access."));
-				return Left;
-			}
+			
+			ReportError(Previous(), TEXT("Invalid assignment target for member access."));
+			return Left;
 		}
-		else if (Left.IsValid() && Left->Kind == EExpressionKind::Index)
+
+		if (Left.IsValid() && Left->Kind == EExpressionKind::Index)
 		{
 			// 배열 인덱싱 할당: arr[0] = value
 			TSharedPtr<FIndexExpression> IndexExpr = StaticCastSharedPtr<FIndexExpression>(Left);
